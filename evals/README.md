@@ -201,7 +201,8 @@ Fatos usados no gabarito que foram conferidos apenas em fonte secundária, ou qu
   só em `fontes`, não nas regex; conferir.
 
 Conferidos no texto oficial (DOU ou planalto.gov.br) em 24/10/2026: Res. CD/ANPD nº 15/2024
-(arts. 5º, 6º, 9º e 10), Res. CD/ANPD nº 2/2022 (arts. 2º a 16 do Anexo), Lei 14.759/2023, LGPD
+(arts. 2º, 5º, 6º, 9º e 10), Res. CD/ANPD nº 2/2022 (arts. 2º a 16 do Anexo, com o art. 14, II, na
+redação dada pela Res. 15/2024; a versão 0.1.0 deste gabarito usava a redação antiga, já corrigida), Lei 14.759/2023, LGPD
 (arts. 9º, 11, 14, 16, 18, 19, 20, 33 e 38) e Lei 15.211/2025 (não altera o art. 14 da LGPD).
 
 Casos previstos no plano e ainda não criados (próximas versões): edtech com menores, prefeitura
@@ -220,6 +221,7 @@ modelo × condição, com taxa de PASS sobre 3 execuções por caso.
 | | | Haiku | outra@ | | | | | | | |
 | 2026-10-24 (n=1) | 2.1.310 | Sonnet | sem skill | 3/3 | 1/2 | 8/10 | 77/80 | 0 | não revisado | — |
 | 2026-10-24 (n=1) | 2.1.310 | Sonnet | lgpd-dpo@0.1.0 | 3/3 | 2/2 | 9/10 | 79/80 | 0 | não revisado | 14/15 |
+| 2026-10-24 (n=1) | 2.1.310 | Sonnet | lgpd-dpo@0.1.1 | 3/3 | 2/2 | 10/10 | 80/80 | 0 | não revisado | 14/15 |
 | | | Sonnet | outra@ | | | | | | | |
 | | | Opus | sem skill | | | | | | | — |
 | | | Opus | lgpd-dpo@ | | | | | | | |

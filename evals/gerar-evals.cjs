@@ -183,7 +183,7 @@ add({
   expected_behavior: [
     "Informa o prazo de 3 dias úteis contados do conhecimento de que o incidente afetou dados pessoais, para a ANPD e para os titulares (Res. CD/ANPD nº 15/2024, art. 6º, caput e §1º, e art. 9º).",
     "Considera 20/11/2026 (sexta-feira) feriado nacional (Dia Nacional de Zumbi e da Consciência Negra, Lei 14.759/2023) e conclui que o prazo vence em 25/11/2026 (quarta-feira), excluído o dia do conhecimento; ressalva feriados locais.",
-    "Para agente de pequeno porte, prazo em dobro (art. 6º, §8º, e art. 9º, §6º): 6 dias úteis, até 30/11/2026; ressalva que o benefício não se aplica a quem faz tratamento de alto risco (Res. 2/2022, art. 3º) ou quando houver potencial comprometimento à integridade física ou moral (Res. 2/2022, art. 14, II), o que é plausível com dados de saúde.",
+    "Para agente de pequeno porte, prazo em dobro (art. 6º, §8º, e art. 9º, §6º): 6 dias úteis, até 30/11/2026; ressalva que o benefício não se aplica a quem faz tratamento de alto risco ou ultrapassa os limites de receita (Res. 2/2022, art. 3º), o que é plausível com dados de saúde. Não afirma a antiga exceção de \"integridade física ou moral\" do art. 14, II, revogada pela Res. 15/2024, art. 2º.",
     "Menciona a complementação em até 20 dias úteis contados da comunicação (art. 6º, §3º) e o registro do incidente por no mínimo 5 anos (art. 10).",
     "Lista o conteúdo mínimo da comunicação à ANPD (art. 6º, §2º, 12 incisos), incluindo número de titulares com crianças, adolescentes e idosos, medidas antes e depois, motivos da demora, data da ocorrência e do conhecimento, identificação do operador, causa principal e total de titulares das atividades afetadas.",
     "Para os titulares: linguagem simples e comunicação direta e individualizada quando possível (art. 9º, §1º).",
@@ -196,7 +196,7 @@ add({
     r`feriado|consciencia\s+negra|zumbi`,
     r`\bdobro\b|${DIAS_UTEIS(6, "seis")}`,
     DATA(30, 11, "novembro"),
-    r`alto\s+risco|integridade\s+(?:fisica|moral)`,
+    r`alto\s+risco`,
     DIAS_UTEIS(20, "vinte"),
     r`\b(?:5|cinco)\s*(?:\(cinco\)\s*)?anos`,
     r`idosos`,
@@ -213,6 +213,10 @@ add({
     r`${NEG}(?:prazo|em\s+ate|dentro\s+de|no\s+maximo)${G(25)}\b72\s*(?:h\b|horas)`,
     r`${NEG}(?:prazo|em\s+ate|dentro\s+de)${G(25)}\b(?:2|dois)\s+dias\s+uteis`,
     r`${NEG}(?:vence|vencimento|prazo\s+(?:final|limite|termina)|termina|ultimo\s+dia)${G(50)}(?:\b(?:22|24)\s*[\/.-]\s*11\b|\b(?:22|24)\s+de\s+novembro)`,
+    // Exceção revogada: a Res. 15/2024, art. 2º, deu nova redação ao art. 14, II, da Res. 2/2022.
+    r`(?:^|\n)(?![^\n]*revog)[^\n]*integridade\s+fisica\s+ou\s+moral`,
+    // Armadilha declarada: esperar a investigação terminar para comunicar.
+    r`${NEG}(?:aguard|esper)\w*${G(40)}(?:o\s+)?(?:fim|termino|conclus\w+|encerramento|resultado)${G(20)}(?:da\s+|das\s+)?(?:investiga|apura|pericia|analise)`,
   ],
   armadilhas: [
     "Não é preciso concluir a investigação para comunicar; informação ainda não apurada pode ser complementada (art. 6º, §3º). Recomendar esperar é erro.",
@@ -221,7 +225,7 @@ add({
   ],
   fontes: [
     "Res. CD/ANPD nº 15/2024, art. 5º (critérios), art. 6º caput, §§1º, 2º (incisos I a XII), 3º e 8º; art. 9º caput, §1º e §6º; art. 10",
-    "Res. CD/ANPD nº 2/2022, art. 3º, I, art. 4º e art. 14, II",
+    "Res. CD/ANPD nº 2/2022, art. 3º, art. 4º e art. 14, II (redação dada pela Res. CD/ANPD nº 15/2024, art. 2º)",
     "Lei 14.759/2023 (20 de novembro, feriado nacional)",
     "LGPD art. 48",
     "Lei 9.784/1999, art. 66 (exclusão do dia do começo), por analogia — interpretação, confirmar",
@@ -278,7 +282,7 @@ add({
   deve_conter: [
     PAR(11, 4),
     r`veda`,
-    r`mesmo\s+(?:com|que\s+haja|havendo|diante\s+d[oe]|que\s+(?:o\s+)?(?:titular|paciente)\s+consinta)\s+(?:o\s+|um\s+)?consentimento|mesmo\s+que\s+(?:o\s+)?(?:titular|paciente)\s+consinta|consentimento[^.;\n]{0,80}\bnao\b[^.;\n]{0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona|elimina|cura|valida|suficiente|e\s+(?:uma\s+)?exce|esta\s+entre|figura|consta)|\bnao\b[^.;\n]{0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona)[^.;\n]{0,60}consentimento|consentimento[^.;\n]{0,30}(?:insuficiente|irrelevante)`,
+    r`mesmo\s+(?:com|que\s+haja|havendo|diante\s+d[oe]|que\s+(?:o\s+)?(?:titular|paciente)\s+consinta)\s+(?:o\s+|um\s+)?consentimento|mesmo\s+que\s+(?:o\s+)?(?:titular|paciente)\s+consinta|consentimento[^.;\n]{0,80}\bnao\b[^.;\n]{0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona|elimina|cura|valida|suficiente|e\s+(?:uma\s+)?exce|esta\s+entre|figura|consta)|\bnao\b[^.;\n]{0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona)[^.;\n]{0,60}consentimento|consentimento[^.;\n]{0,30}(?:insuficiente|irrelevante)|(?:checkbox|caixa\s+de\s+selecao|aceite|opt-?in)[^.;\n]{0,80}\bnao\s+(?:libera|legitima|autoriza|afasta|resolve|basta)|\bnao\s+afasta\s+(?:uma\s+|a\s+)?vedacao`,
   ],
   nao_deve_conter: [
     r`${NEG}com\s+(?:o\s+|esse\s+|um\s+)?(?:checkbox\s+de\s+)?consentimento(?:\s+\w+){0,4}\s*,?\s+(?:fica|e|torna-se|se\s+torna|passa\s+a\s+ser|seria|estaria|ficaria)\s+(?:liberad|legal|permitid|possivel|licit|valid|autorizad|regular)`,
@@ -508,6 +512,8 @@ add({
   nao_deve_conter: [
     r`${NEG}(?:\blgpd\b|\blei\b)${G(40)}(?:proibe|veda|impede)${G(40)}condicionar`,
     r`${NEG}(?:e|seria)\s+(?:sempre\s+)?(?:proibido|vedado|ilegal|ilicito)\s+condicionar`,
+    // Leitura errada do §3: ele trata do tratamento como condição, não do consentimento.
+    r`${NEG}(?:art(?:igo)?\.?\s*9|§\s*3)${G(60)}(?:admite|permite|autoriza)${G(30)}condicionar${G(50)}ao\s+consentimento`,
   ],
   armadilhas: [
     "Ponto com divergência doutrinária sobre consentimento condicionado ser 'livre'. O gabarito só reprova a afirmação de proibição absoluta; discutir o risco de o consentimento ser considerado não livre é aceitável.",

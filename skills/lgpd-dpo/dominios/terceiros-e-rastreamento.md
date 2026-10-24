@@ -90,8 +90,9 @@ nº 32/2026 (adequação da União Europeia).
 Banco, bucket, função ou SaaS configurado em região fora do Brasil, ou provedor estrangeiro, recebendo
 dados pessoais. Antes de pedir mecanismo, veja o destino:
 - **União Europeia e Espaço Econômico Europeu**: reconhecidos como adequados pela Res. CD/ANPD
-  nº 32/2026 (art. 33, I). Não exigem cláusulas-padrão; confira a situação vigente em
-  [../normas/referencias.md](../normas/referencias.md).
+  nº 32/2026 (art. 33, I). Não exigem cláusulas-padrão (exceto o que a resolução exclui, como
+  transferências exclusivamente para segurança pública e persecução penal); confira a situação vigente
+  em [../normas/referencias.md](../normas/referencias.md).
 - **Demais países** (inclusive EUA): exigem outro mecanismo do art. 33, como as cláusulas-padrão
   contratuais da Res. 19/2024, incorporadas sem alteração, ou outra hipótese do art. 33.
 

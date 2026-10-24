@@ -1,6 +1,6 @@
 # Exemplo: revisão de LGPD de um checkout de e-commerce
 
-> Saída real da skill `lgpd-dpo` v0.1.0 (Claude Code 2.1.310, Sonnet, 24/10/2026) no caso
+> Saída real da skill `lgpd-dpo` v0.1.1 (Claude Code 2.1.310, Sonnet, 24/10/2026) no caso
 > `varejo-checkout` dos evals. O código revisado é a fixture fictícia em
 > [`evals/fixtures/varejo-checkout`](../../evals/fixtures/varejo-checkout); nenhum dado é real.
 > Texto reproduzido sem edição.
@@ -9,76 +9,91 @@
 
 ---
 
-Li o repositório inteiro (12 arquivos) e verifiquei cada achado relendo o trecho, numa única passada minha, sem verificação independente. O diretório `src/db` não está no repositório, então não consegui avaliar armazenamento, criptografia, retenção nem controle de acesso do banco. Isto é evidência técnica, não parecer jurídico nem declaração de conformidade.
+# Revisão de LGPD do checkout
 
-## Corrigir antes do lançamento (confirmados)
+Li os 11 arquivos de `src/` e não executei nada. Esta revisão é técnica e não substitui parecer jurídico. Decisões sobre base legal, contrato com a Meta e porte da empresa são suas, com o DPO e o jurídico.
 
-**1. Corpo inteiro do checkout gravado em log (risco médio)**
-- `src/routes/checkout.ts:13` faz `logger.info({ body: req.body }, ...)`. Isso grava nome, e-mail, CPF completo, telefone, endereço e itens em texto puro.
-- O destino é `logs/app.log`. Segundo o comentário em `src/lib/logger.ts:3-4`, tem 90 dias de retenção e acesso de toda a engenharia e do suporte N2.
-- `src/lib/audit-log.ts:3` mascara o CPF, mas a linha 13 do checkout anula essa proteção.
-- Infringe o art. 46 (segurança) e o art. 6º, III e VII.
-- Correção:
-  - Registrar só `pedidoId` e metadados.
-  - Colocar `redact` no pino para `req.body.*`.
-  - Escrever um teste que falhe se o log contiver o CPF enviado.
-  - Depois, expurgar ou rotacionar os `app.log` já gerados.
+O repositório não tem `src/db`, o layout que chama `iniciarPixel`, o banner de cookies nem a página `/privacidade`. Por isso não consigo ver como CPF e e-mail são armazenados, qual é a retenção, nem se há consentimento antes do pixel. Esses pontos aparecem como "precisa validar".
 
-**2. CPF na URL do "acompanhe seu pedido" (risco médio)**
-- `src/web/rastreio.ts:2` e `src/routes/pedidos.ts:8-10` enviam o CPF por query string em GET.
-- `src/server.ts:13` usa `morgan("combined")` com a URL completa. O CPF vai para `logs/access.log`, que não tem rotação nem retenção visíveis no repositório. Também pode ir para proxy, histórico do navegador e `Referer`.
-- Correção:
-  - Trocar para POST com o CPF no corpo.
-  - Preferir um link com token de uso único enviado por e-mail.
-  - Se mantiver CPF mais número do pedido, aplicar rate limit. Hoje não há nenhum, e o número do pedido parece sequencial.
-  - Mascarar ou retirar a query string do log do morgan.
+## O que está errado e prova-se pelo código
 
-**3. Marketing pré-marcado (risco médio)**
-- `src/web/CheckoutForm.tsx:21` usa `defaultChecked`. Consentimento exige manifestação inequívoca (art. 8º, §4º), e uma caixa já marcada não atende.
-- O texto junta e-mail e WhatsApp em uma só caixa.
-- `src/routes/checkout.ts:26` guarda só um booleano. Não há data, versão do texto nem finalidade, e o ônus da prova é do controlador (art. 8º, §2º).
-- Não há caminho de revogação no repositório (art. 8º, §5º).
-- Correção:
-  - Desmarcar por padrão.
-  - Guardar `consentimento_marketing` com data/hora, versão do texto e canal.
-  - Oferecer revogação que os envios realmente consultem.
-- Se a empresa preferir tratar o marketing para clientes existentes como legítimo interesse, essa é uma decisão do jurídico, e o consentimento nesse formulário deixa de ser a base.
+| # | Achado | Risco | Onde |
+|---|---|---|---|
+| 1 | O corpo inteiro do checkout vai para o log | Médio | `checkout.ts:13`, `logger.ts:3-5` |
+| 2 | CPF completo na URL do rastreio e no log de acesso | Médio | `pedidos.ts:8-10`, `rastreio.ts:2`, `server.ts:12-13` |
+| 3 | Checkbox de marketing já vem marcado, sem registro do consentimento | Médio | `CheckoutForm.tsx:21`, `checkout.ts:22-27` |
 
-## Precisa de validação (o código levanta a hipótese, o fato decisivo está fora)
+**1. O corpo do checkout vai inteiro para o log.**
+- `logger.info({ body: req.body }, ...)` grava nome, e-mail, CPF, telefone e endereço em `logs/app.log`.
+- Esses logs ficam 90 dias e são lidos por toda a engenharia e pelo suporte N2.
+- Isso fere a necessidade e a segurança (LGPD, art. 6º, III e VII, e art. 46).
+- Também anula o `mascararCpf` de `audit-log.ts`: o CPF mascarado é gravado, mas o completo já foi gravado uma linha antes.
 
-**4. Conversions API da Meta (`src/integrations/meta-capi.ts`, chamada em `checkout.ts:31-39`)**
-- Em toda compra, envia à Meta e-mail e telefone com SHA-256, IP, user-agent e `fbp`. O hash sem segredo continua sendo dado pessoal, porque a Meta o usa para identificar a pessoa.
-- O envio não consulta `aceitaMarketing`. O texto da caixa fala só de e-mail e WhatsApp, não de compartilhamento com plataforma de anúncios.
-- Perguntas para o DPO e o jurídico:
-  - Qual é a base legal desse envio?
-  - A política de privacidade informa a Meta?
-  - Há mecanismo de transferência internacional (Meta nos EUA, arts. 33 a 36, cláusulas-padrão da Res. 19/2024)?
-- Observação: o evento só leva o valor da compra, sem itens. Se a loja vender algo que revele dado de saúde ou outro sensível, isso muda e vira alto risco.
+**2. O rastreio manda o CPF na query string.**
+- O `morgan("combined")` registra a URL completa em `logs/access.log`, então o CPF fica sem máscara nesse arquivo.
+- A URL com CPF também fica no histórico do navegador e em proxies e CDN.
 
-**5. Pixel em todas as páginas (`src/web/pixel.ts`)**
-- Carrega o script da Meta e dispara `PageView` sem checar consentimento. O comentário diz "carregado no layout de todas as páginas".
-- Não vi o banner de cookies nem quem chama `iniciarPixel`. Se ele for chamado antes da escolha do usuário, as tags de marketing disparam antes do consentimento.
-- A equipe de front-end precisa confirmar onde a chamada acontece.
-- Sem relação com a LGPD: `window.fbq` é chamado logo após anexar o script, antes de ele carregar. Provavelmente lança `TypeError`, a menos que o stub do `fbq` esteja definido em outro lugar.
+**3. O consentimento de marketing não vale como está.**
+- O `defaultChecked` não mostra um ato afirmativo do titular (art. 5º, XII, e art. 8º).
+- O backend guarda só um booleano no pedido, sem data, sem versão do texto e sem ligação ao cliente. Você não consegue provar o consentimento (art. 8º, §2º) nem tratar uma revogação (art. 8º, §5º).
 
-**6. Pontos que o repositório não mostra**
-- Eliminação e retenção de `clientes` e `pedidos`: a guarda fiscal deve ser respeitada, e não se deve eliminar o que tem prazo legal.
-- Canal para os direitos do titular e encarregado publicado.
-- Conteúdo da política de privacidade em `/privacidade`.
-- Necessidade do CPF: plausível para nota fiscal, mas o DPO deve registrar a justificativa.
-- Rotação do `access.log` e do `app.log`.
+## O que depende de fato fora do repositório
 
-## O que está correto
-- `src/lib/dedup.ts` usa HMAC com pepper vindo do cofre de segredos, e a chave não vai a terceiros. Está bem feito e não é o erro do hash sem segredo.
-- Os cookies `sid` e `carrinho_id` (`src/middleware/sessao.ts`) são estritamente necessários e estão bem configurados: `httpOnly`, `secure`, `sameSite` e validade curta. Não dependem de consentimento.
-- O mascaramento em `mascararCpf` é adequado.
+**A. Pixel e API de Conversões da Meta.** É o ponto mais sensível para o lançamento.
+- `meta-capi.ts:26-31` envia à Meta, a cada compra, e-mail e telefone com hash, IP, user-agent e `_fbp`. O hash SHA-256 continua sendo dado pessoal, porque a Meta usa o hash para identificar a pessoa.
+- `checkout.ts:31` envia sempre, sem consultar nenhum consentimento. Mesmo que você bloqueie o pixel no navegador, o envio pelo servidor continua.
+- `pixel.ts` carrega o `fbevents.js` em todas as páginas e dispara `PageView` sem condição. O chamador não está no repositório, então não sei se há banner antes.
+- O que preciso saber:
+  - Qual é a base legal adotada para anúncios (consentimento ou legítimo interesse)?
+  - O aviso de privacidade cita a Meta?
+  - Há contrato com a Meta? Os dados vão para os EUA, então é preciso um mecanismo do art. 33, como as cláusulas-padrão da Res. CD/ANPD nº 19/2024.
+  - A "correspondência avançada automática" está ligada no painel da Meta? Com o pixel na página do checkout, ela pode ler os campos do formulário.
+- Se a loja vende produto ou serviço de saúde, o próprio fato de comprar pode virar dado de saúde inferido. Aí vale a vedação do art. 11, §4º, e consentimento não a afasta. O evento atual só leva valor e moeda, sem itens, o que ajuda.
 
-## Fora do escopo da LGPD
-`enviarCompraMeta` é aguardado sem `try/catch` em `checkout.ts:31`. Se a Meta falhar, o cliente recebe erro depois de o pedido já ter sido criado.
+**B. Rastreio sem login e sem limite de tentativas.**
+- Qualquer pessoa que saiba um CPF pode testar números de pedido. Um 200 confirma que aquela pessoa comprou na loja. A resposta é enxuta (número, status e previsão), então o dano é pequeno.
+- Se existir limite de tentativas no WAF ou no gateway, isso cai. Também preciso saber se os números de pedido são sequenciais.
 
-## Ordem sugerida
-1. Itens 1 e 2, que são correções pequenas e de maior exposição.
-2. Item 3, que exige mudar o front-end e criar a tabela de consentimento.
-3. Em paralelo, levar os itens 4 e 5 ao DPO e ao jurídico, porque são decisões e não só código.
+**C. Documentação do DPO.** Não dá para saber pelo código.
+- Base legal de cada finalidade.
+- Necessidade de CPF e telefone como campos obrigatórios. O CPF costuma ser exigido para a nota fiscal, mas o telefone obrigatório precisa de justificativa.
+- Retenção de clientes e pedidos. Eliminar o que tem guarda fiscal seria erro, e guardar o resto sem prazo também.
+- Canal para o titular exercer os direitos (art. 18) e atualização do RoPA.
 
-Quer que eu aplique as correções 1 a 3 no código? Também posso gerar o relatório completo, com `achados.json` e a lista de pendências por responsável. Se for gerar, prefiro avisar antes, porque isso cria arquivos fora do repositório.
+## O que está certo
+
+- `dedup.ts` usa HMAC com segredo (pepper) e a chave não sai do banco. É a forma correta, diferente de um hash simples de CPF.
+- Os cookies `sid` e `carrinho_id` são estritamente necessários, e têm `httpOnly`, `secure` e `sameSite`. Não dependem de consentimento.
+- A resposta do rastreio não devolve endereço nem dados do cliente.
+
+## O que corrigir, em ordem
+
+1. **Logs**
+   - Em `checkout.ts:13`, logue só o que importa, por exemplo `logger.info({ itens: itens?.length }, "checkout recebido")`.
+   - Como rede de proteção, configure `redact` no pino para `cpf`, `email`, `telefone`, `nome` e `endereco`.
+   - No `morgan`, registre o caminho sem a query string do rastreio.
+   - Apague ou anonimize os logs já gravados, inclusive a cópia no serviço de observabilidade. Isso não é, por si só, um incidente comunicável: o DPO avalia, já que o acesso foi interno.
+   - Teste: um POST de checkout não pode deixar CPF, e-mail ou telefone em nenhum arquivo de log.
+
+2. **Meta e consentimento**
+   - Dispare o pixel só depois da escolha no banner, com "rejeitar" tão fácil quanto "aceitar".
+   - Faça o front enviar o estado do consentimento de anúncios e o backend verificá-lo antes de `enviarCompraMeta` em `checkout.ts:31`.
+   - Teste: sem consentimento, não pode haver chamada a `graph.facebook.com`.
+   - Aproveite para envolver o envio em `try/catch` ou numa fila. Hoje, se a Meta falhar, o checkout devolve erro depois de o pedido já ter sido criado.
+   - Em `pixel.ts`, o `window.fbq` é chamado sem o stub padrão do snippet da Meta. Se ele não estiver definido em outro lugar, isso lança erro.
+
+3. **Checkbox de marketing**
+   - Tire o `defaultChecked`.
+   - Guarde, na tabela de clientes, o valor, a data e a versão do texto exibido.
+   - Crie um caminho de revogação (link de descadastro e canal para o titular).
+
+4. **Rastreio**
+   - Troque o CPF por um token imprevisível enviado por e-mail, ou use POST com o CPF no corpo.
+   - Limite tentativas por IP e por CPF.
+   - Responda igual para "não existe" e "dados não conferem".
+
+5. **Documentos** (ação do DPO)
+   - Atualize o aviso de privacidade com a Meta, as finalidades, a retenção e a transferência internacional.
+   - Atualize o RoPA e defina a política de retenção.
+
+Posso aplicar as correções 1 a 4 no código, mas só altero algo se você pedir. Se quiser a auditoria completa (`achados.json` e relatório), preciso do contexto que faltou: se vocês são controladores e de que porte, e o objetivo da entrega.

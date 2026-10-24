@@ -56,7 +56,7 @@ Lista oficial: https://www.gov.br/anpd/pt-br/acesso-a-informacao/institucional/a
 | Norma | Tema | Situação | Verificado em |
 |---|---|---|---|
 | Res. CD/ANPD nº 1/2021 | Fiscalização e processo administrativo sancionador | vigente (há consulta sobre novo regulamento de fiscalização) | 2026-10-24 |
-| Res. CD/ANPD nº 2/2022 | Agentes de pequeno porte; art. 4: tratamento de alto risco (critério geral + específico); art. 11: dispensa de encarregado com canal ao titular | vigente | 2026-10-24 |
+| Res. CD/ANPD nº 2/2022 | Agentes de pequeno porte; art. 3: quem não pode usar o regime diferenciado; art. 4: tratamento de alto risco (critério geral + específico); art. 11: dispensa de encarregado com canal ao titular; art. 14: prazos em dobro (II com redação da Res. 15/2024); art. 15: declaração simplificada em até 15 dias | vigente (texto conferido no gov.br) | 2026-10-24 |
 | Res. CD/ANPD nº 4/2023 | Dosimetria e aplicação de sanções | vigente | 2026-10-24 |
 | Enunciado CD/ANPD nº 1/2023 | Dados de crianças e adolescentes: bases dos arts. 7º e 11, observado o melhor interesse | vigente | 2026-10-24 |
 | Res. CD/ANPD nº 15/2024 | Comunicação de incidente de segurança (3 dias úteis; complementação em 20 dias úteis; dobro para pequeno porte; registro por 5 anos) | vigente (texto conferido na cópia do DOU) | 2026-10-24 |
@@ -65,7 +65,7 @@ Lista oficial: https://www.gov.br/anpd/pt-br/acesso-a-informacao/institucional/a
 | Res. CD/ANPD nº 23/2024 | Agenda regulatória 2025–2026 | vigente (fonte secundária) | 2026-10-24 |
 | Res. CD/ANPD nº 30/2025 | Mapa de temas prioritários de fiscalização 2026–2027 | vigente (fonte secundária) | 2026-10-24 |
 | Res. CD/ANPD nº 31/2025 | Atualização da agenda regulatória | vigente (fonte secundária) | 2026-10-24 |
-| Res. CD/ANPD nº 32/2026 | Adequação da União Europeia e do EEE para transferência internacional (art. 33, I), de 26/01/2026 | vigente (fonte secundária) | 2026-10-24 |
+| Res. CD/ANPD nº 32/2026 | Adequação da União Europeia e do EEE para transferência internacional (art. 33, I), de 26/01/2026; não abrange transferências exclusivamente para segurança pública, defesa nacional, segurança do Estado ou investigação e persecução penal; revisão em até 4 anos | vigente (fonte secundária) | 2026-10-24 |
 
 Guias orientativos úteis da ANPD: cookies; legítimo interesse; agentes de tratamento e encarregado;
 segurança da informação para agentes de pequeno porte; tratamento de dados pelo poder público. Modelo
@@ -82,7 +82,9 @@ Não trate como obrigação até a publicação da norma final. Confira a situa�
 - guia de anonimização e pseudonimização;
 - novo regulamento de fiscalização, com medidas cautelares;
 - revisão da dosimetria;
-- regulamentação de mecanismos de aferição de idade do ECA Digital.
+- detalhamento, pela ANPD, de obrigações do ECA Digital. Segundo fontes secundárias, decretos de
+  18/03/2026 já regulamentaram parte da lei (inclusive design manipulativo). Confira quais pontos
+  estão regulamentados, como a aferição de idade, antes de tratá-los como obrigação detalhada.
 
 ## Outras leis gerais
 
@@ -90,7 +92,7 @@ Não trate como obrigação até a publicação da norma final. Confira a situa�
 |---|---|---|
 | Lei 15.211/2025 (ECA Digital) | Proteção de crianças e adolescentes em ambientes digitais; vigência desde 17/03/2026 | vigente (fonte secundária para a data); confira artigos no texto oficial antes de citar |
 | Decreto 12.622/2025 | Designa a ANPD como autoridade administrativa autônoma do ECA Digital | vigente (https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/Decreto/D12622.htm) |
-| Lei 15.352/2026 | Transforma a ANPD em agência reguladora (Agência Nacional de Proteção de Dados) | vigente (fonte secundária) |
+| Lei 15.352/2026 (conversão da MP 1.317/2025) | Transforma a ANPD em agência reguladora (Agência Nacional de Proteção de Dados); altera a LGPD (arts. 5º, VIII, e 55-A, entre outros) | vigente (já incorporada ao texto compilado da LGPD no planalto.gov.br) |
 | Lei 12.965/2014 (Marco Civil da Internet) | Guarda de registros de conexão e de acesso a aplicações | vigente |
 | Lei 8.078/1990 (CDC), art. 43 | Bancos de dados e cadastros de consumidores | vigente |
 | Lei 12.414/2011 | Cadastro positivo | vigente |
@@ -123,9 +125,15 @@ os arts. 45 e 46 foram declarados inconstitucionais (Súmula Vinculante 8 do STF
 
 - **2026-01-26** — Res. CD/ANPD nº 32/2026 reconhece a adequação da UE e do EEE: transferências para
   esses destinos deixam de exigir cláusulas-padrão.
-- **2026-02-25** — Lei 15.352/2026: a ANPD passa a ser agência reguladora; a definição de
-  encarregado (art. 5, VIII) passa a mencionar a Agência Nacional de Proteção de Dados.
+- **2026-02-25** — Lei 15.352/2026, conversão da MP 1.317/2025: consolida a ANPD como agência
+  reguladora; a definição de encarregado (art. 5, VIII) passa a mencionar a Agência Nacional de
+  Proteção de Dados.
 - **2026-03-17** — início da vigência do ECA Digital (Lei 15.211/2025), com a ANPD como autoridade
   administrativa autônoma (Decreto 12.622/2025).
+- **2025-09** — MP 1.317/2025 transforma a ANPD em agência reguladora, e o Decreto 12.622/2025 a
+  designa autoridade do ECA Digital.
 - **2025-08** — fim do prazo de 12 meses da Res. 19/2024 para incorporar as cláusulas-padrão aos
   contratos vigentes.
+- **2024-04-24** — Res. CD/ANPD nº 15/2024, art. 2º, dá nova redação ao art. 14, II, da Res. 2/2022:
+  cai a antiga exceção ao prazo em dobro do pequeno porte em incidentes que comprometam a
+  integridade física ou moral dos titulares ou a segurança nacional.

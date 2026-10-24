@@ -8,7 +8,12 @@
 #
 # Cada caso roda numa cópia descartável da fixture, fora do repositório, para o modelo não ler o
 # gabarito. Grava <dir-saida>/<id>.md (texto final), <id>.jsonl (transcrição) e <id>.skill
-# (lista de skills acionadas). Paralelismo: PARALELO=4 por padrão.
+# (lista de skills acionadas) e <id>.exit (código de saída do claude). Um caso que falha é avisado no
+# stderr e não interrompe os demais. Paralelismo: PARALELO=4 por padrão.
+#
+# Limitação: a condição "com" não isola outras skills, plugins nem CLAUDE.md do usuário (o
+# --safe-mode desligaria também a skill testada). Rode numa conta ou máquina limpa para um
+# benchmark público.
 set -euo pipefail
 
 condicao=${1:?uso: rodar.sh <com|sem> <modelo> <dir-saida> [id ...]}
@@ -48,8 +53,9 @@ rodar_caso() {
     cd "$tmp"
     node -e 'process.stdout.write(require(process.argv[1]).find(x=>x.id===process.argv[2]).query)' "$raiz/evals.json" "$id" \
       | claude -p --model "$modelo" --no-session-persistence --output-format stream-json --verbose ${flags[@]+"${flags[@]}"} \
-      > "$saida/$id.jsonl" 2> "$saida/$id.err" || true
-  )
+      > "$saida/$id.jsonl" 2> "$saida/$id.err"
+    echo $? > "$saida/$id.exit"
+  ) || true
   node -e '
     const fs = require("fs");
     const linhas = fs.readFileSync(process.argv[1], "utf8").split("\n").filter(Boolean);
@@ -65,6 +71,11 @@ rodar_caso() {
     fs.writeFileSync(process.argv[3], [...skills].join("\n"));
   ' "$saida/$id.jsonl" "$saida/$id.md" "$saida/$id.skill"
   rm -rf "$tmp"
+  local codigo
+  codigo=$(cat "$saida/$id.exit" 2>/dev/null || echo "?")
+  if [ "$codigo" != "0" ] || [ ! -s "$saida/$id.md" ]; then
+    echo "$id: FALHOU (saída do claude: $codigo; veja $saida/$id.err)" >&2
+  fi
   echo "$id: $(wc -c < "$saida/$id.md" | tr -d ' ') bytes, skills: $(tr '\n' ' ' < "$saida/$id.skill")"
 }
 export -f rodar_caso

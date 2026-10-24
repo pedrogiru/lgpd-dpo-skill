@@ -50,9 +50,11 @@ familiar) e trafega com as permissões e os destinos de um campo comum (exporta�
 **Consentimento inválido no código**
 Checkbox pré-marcado; consentimento embutido nos termos de uso sem destaque; uma caixa para várias
 finalidades; texto genérico ("para melhorar sua experiência"). Art. 8, §4: autorizações genéricas
-são nulas. Condicionar o produto ou serviço ao consentimento **não** é, por si, irregular: o art. 9,
-§3 admite isso desde que o titular seja informado com destaque. O achado está na falta de destaque,
-na finalidade genérica ou no uso de consentimento onde a finalidade não depende dele.
+são nulas. Atenção ao art. 9, §3: ele admite que o **tratamento** seja condição do produto ou
+serviço, com destaque ao titular e informação sobre seus direitos; não trata de consentimento.
+Consentimento exigido para usar o serviço tende a não ser livre (art. 5, XII). O achado está na falta
+de destaque, na finalidade genérica, no empacotamento de finalidades acessórias (ex.: publicidade de
+terceiros) junto com o essencial, ou no uso de consentimento onde cabia outra base.
 
 **Consentimento sem prova**
 O tratamento se apoia em consentimento, mas o sistema não guarda quem consentiu, quando, em que

@@ -55,9 +55,14 @@ Afeta significativamente quando, entre outras situações, puder impedir o exerc
 uso de um serviço, ou causar danos materiais ou morais, como discriminação, violação à integridade
 física, ao direito à imagem e à reputação, fraude financeira ou roubo de identidade (art. 5, §1).
 
-Pesam contra a comunicação, e precisam de fundamentação registrada: dados cifrados com chave não
-comprometida, exposição comprovadamente contida sem acesso, destinatário confiável que comprovou a
-eliminação.
+A Res. 15/2024 não lista hipóteses que afastam a comunicação. Circunstâncias como dados cifrados
+com chave não comprometida, exposição comprovadamente contida sem acesso ou destinatário confiável que
+comprovou a eliminação podem indicar que o incidente não afeta significativamente os titulares, mas
+isso é **interpretação** a ser fundamentada no registro do incidente (art. 10, §1, V e VIII) e
+decidida pelo controlador. Na dúvida, comunique.
+
+Não espere o fim da investigação para comunicar: o prazo corre do conhecimento de que dados pessoais
+foram afetados, e o que ainda não se sabe vai na complementação.
 
 ## 3. Prazos
 
@@ -67,7 +72,7 @@ eliminação.
 | Complementar a comunicação | até 20 dias úteis da data da comunicação, de forma fundamentada | art. 6, §3 |
 | Comunicar aos titulares | 3 dias úteis do mesmo marco | art. 9, *caput* |
 | Juntar declaração de que os titulares foram comunicados | até 3 dias úteis após o fim do prazo de comunicação aos titulares | art. 9, §4 |
-| Agente de pequeno porte | prazos da comunicação à ANPD, da complementação e da comunicação aos titulares contados em dobro, **se** o agente puder usar o regime diferenciado: não pode quem realiza tratamento de alto risco (Res. CD/ANPD nº 2/2022, art. 3, I), e o prazo em dobro não se aplica quando houver potencial comprometimento à integridade física ou moral dos titulares (Res. 2/2022, art. 14) | art. 6, §8; art. 9, §6 |
+| Agente de pequeno porte | prazos da comunicação à ANPD, da complementação e da comunicação aos titulares contados em dobro, **se** o agente puder usar o regime diferenciado da Res. CD/ANPD nº 2/2022: não pode quem realiza tratamento de alto risco, nem quem ultrapassa os limites de receita, sozinho ou no grupo econômico (art. 3) | art. 6, §8; art. 9, §6; Res. 2/2022, art. 14, II, na redação dada pela Res. 15/2024 |
 | Manter o registro do incidente (comunicado ou não) | mínimo de 5 anos da data do registro | art. 10 |
 
 Contagem: exclua o dia do marco e conte apenas dias úteis, pulando sábados, domingos e feriados

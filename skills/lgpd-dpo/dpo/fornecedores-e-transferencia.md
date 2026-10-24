@@ -57,8 +57,10 @@ Due diligence:
 Arts. 33 a 36 da LGPD. Primeiro veja o destino, depois o mecanismo:
 
 1. **União Europeia e Espaço Econômico Europeu**: a Res. CD/ANPD nº 32/2026 reconheceu adequação
-   (art. 33, I). A transferência para esses destinos não exige cláusulas-padrão. Confira a situação
-   vigente em [../normas/referencias.md](../normas/referencias.md).
+   (art. 33, I). A transferência para esses destinos não exige cláusulas-padrão. A adequação não
+   abrange transferências feitas exclusivamente para segurança pública, defesa nacional, segurança do
+   Estado ou investigação e persecução penal. Confira a situação vigente em
+   [../normas/referencias.md](../normas/referencias.md).
 2. **Outros destinos sem decisão de adequação** (inclusive EUA): use outro mecanismo do art. 33,
    como:
    - cláusulas-padrão contratuais aprovadas pela Res. CD/ANPD nº 19/2024, incorporadas

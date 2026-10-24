@@ -3,6 +3,31 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versões seguem
 [SemVer](https://semver.org/lang/pt-BR/). Mudanças normativas são listadas à parte em cada versão.
 
+## [0.1.1] — 2026-10-24
+
+Correções apontadas por uma avaliação independente da v0.1.0.
+
+### Normativo
+- **Corrigido**: a exceção ao prazo em dobro do pequeno porte em incidentes com risco à integridade
+  física ou moral foi revogada (Res. CD/ANPD nº 15/2024, art. 2º, que deu nova redação ao art. 14,
+  II, da Res. 2/2022). Saiu do playbook de incidentes, do exemplo publicado e do gabarito.
+- **Corrigido**: art. 9º, §3º trata do *tratamento* como condição do serviço, não do consentimento.
+- **Adicionado**: prazos do pequeno porte para titulares (Res. 2/2022, arts. 14, I e III, e 15).
+- **Adicionado**: exclusões da adequação da UE (segurança pública, defesa, persecução penal);
+  MP 1.317/2025 no histórico; Lei 15.352/2026 marcada como vigente pelo texto compilado.
+- Oposição (art. 18, §2) depende de descumprimento da lei; hipóteses que afastam a comunicação de
+  incidente marcadas como interpretação; critério de alto risco da Res. 2/2022 apresentado como
+  referência.
+
+### Evals
+- Armadilhas novas: esperar a investigação para comunicar, exceção revogada do art. 14, leitura
+  errada do art. 9º, §3º.
+- `rodar.sh` registra o código de saída de cada caso e avisa falhas.
+- Respostas brutas da rodada publicadas.
+
+### Documentação
+- Plano interno substituído por `docs/roadmap.md`; exemplo de incidente regenerado com a 0.1.1.
+
 ## [0.1.0] — 2026-10-24
 
 ### Adicionado

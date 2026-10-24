@@ -189,3 +189,34 @@ test("evals.json está em sincronia com evals/gerar-evals.cjs", () => {
   const atual = fs.readFileSync(path.join(__dirname, "..", "evals", "evals.json"), "utf8");
   assert.strictEqual(atual, gerar(), "rode: node evals/gerar-evals.cjs");
 });
+
+test("resposta só com palavras-chave e com a armadilha reprova em incidente-prazo", () => {
+  // Achado da avaliação independente da v0.1.0: esta resposta passava 18/18.
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "score-fake-"));
+  try {
+    const arq = escrever(
+      dir,
+      "incidente-prazo.md",
+      "Prazo: 3 dias uteis, Res. 15/2024, 25/11, feriado, dobro 6 dias uteis 30/11, alto risco, " +
+        "20 dias uteis, 5 anos, idosos, operador, causa principal, total de titulares, demora, antes e depois, " +
+        "encarregado, linguagem simples, individual.\nRecomendamos aguardar o fim da investigacao antes de comunicar.\n",
+    );
+    const r = rodar("incidente-prazo", arq);
+    assert.strictEqual(r.code, 1);
+    assert.match(r.out, /FAIL/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a exceção revogada do art. 14, II reprova, mas mencioná-la como revogada passa", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "score-art14-"));
+  try {
+    const errada = escrever(dir, "a.md", "O prazo em dobro não vale se houver risco à integridade física ou moral (Res. 2/2022, art. 14).\n");
+    assert.match(rodar("incidente-prazo", errada).out, /integridade/);
+    const certa = escrever(dir, "b.md", "A antiga exceção de integridade física ou moral foi revogada pela Res. 15/2024.\n");
+    assert.doesNotMatch(rodar("incidente-prazo", certa).out, /proibido:[^\n]*integridade/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});

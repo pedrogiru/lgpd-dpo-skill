@@ -2,7 +2,32 @@
 
 Método e limitações em [README.md](README.md). Leia as ressalvas antes de citar estes números.
 
-## 2026-10-24 — primeira rodada (v0.1, pré-lançamento)
+## 2026-10-24 — v0.1.1
+
+Claude Code 2.1.310, Sonnet, uma execução por caso (n=1), gabarito automático (regex) **não revisado
+por advogado**. Respostas brutas: [`resultados/2026-10-24-sonnet/`](resultados/2026-10-24-sonnet/).
+
+| Condição | Casos PASS | código (3) | dpo (2) | regressão (10) | deve_conter | Armadilhas violadas | Skill acionada |
+|---|---|---|---|---|---|---|---|
+| Sem skill | 12/15 | 3/3 | 1/2 | 8/10 | 77/80 | 0 | — |
+| lgpd-dpo@0.1.1 | 15/15 | 3/3 | 2/2 | 10/10 | 80/80 | 0 | 14/15 |
+
+O que mudou no gabarito desde a v0.1.0, depois de uma avaliação independente:
+- novas armadilhas:
+  - "esperar o fim da investigação para comunicar";
+  - a exceção revogada do art. 14, II, da Res. 2/2022;
+  - a leitura errada do art. 9º, §3º;
+- uma regex ampliada depois de leitura humana de um falso negativo ("um checkbox ... não libera", "não
+  afasta uma vedação").
+
+A resposta da linha de base foi pontuada com o mesmo gabarito. **Ajustar o gabarito depois de ver
+respostas favorece quem foi visto**: isso é mais um motivo para o conjunto reservado da v0.2.
+
+A avaliação independente também mostrou que uma resposta falsa, só com palavras-chave, passava no
+caso `incidente-prazo` da v0.1.0. Com as armadilhas novas, a mesma resposta falsa agora reprova.
+Ainda assim, regex continua sendo proxy: veja a v0.2 no [roadmap](../docs/roadmap.md).
+
+## 2026-10-24 — primeira rodada (v0.1.0)
 
 Claude Code 2.1.310, modelo Sonnet, **uma execução por caso** (n=1), gabarito automático (regex)
 **não revisado por advogado**.
@@ -48,5 +73,4 @@ A primeira execução deu **7/15 com a skill contra 9/15 sem**. As causas encont
 - **Sonnet já sabe muito de LGPD.** A linha de base acerta 12/15. Para separar as skills, são
   necessários casos mais difíceis (normas recentes, setores regulados, armadilhas de falso positivo)
   e avaliação humana da qualidade do relatório, não só regex.
-- As respostas brutas não estão no repositório: podem conter trechos das fixtures, que são
-  fictícias, e ocupam espaço. Reproduza com `evals/rodar.sh`.
+- As respostas brutas da rodada v0.1.1 estão em `resultados/`. As da v0.1.0 não foram publicadas.

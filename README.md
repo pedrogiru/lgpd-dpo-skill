@@ -13,8 +13,8 @@
 <p align="center">
   <a href="https://github.com/pedrogiru/lgpd-dpo-skill/actions/workflows/ci.yml"><img src="https://github.com/pedrogiru/lgpd-dpo-skill/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/licen%C3%A7a-MIT-blue" alt="Licença MIT"></a>
-  <img src="https://img.shields.io/badge/vers%C3%A3o-0.1.0-informational" alt="Versão 0.1.0">
-  <a href="evals/RESULTADOS.md"><img src="https://img.shields.io/badge/evals-14%2F15%20(Sonnet)-success" alt="Evals 14/15"></a>
+  <img src="https://img.shields.io/badge/vers%C3%A3o-0.1.1-informational" alt="Versão 0.1.1">
+  <a href="evals/RESULTADOS.md"><img src="https://img.shields.io/badge/evals%20(Sonnet)-15%2F15%20com%20skill%20%C2%B7%2012%2F15%20sem-success" alt="Evals: 15/15 com a skill, 12/15 sem"></a>
   <img src="https://img.shields.io/badge/revis%C3%A3o%20jur%C3%ADdica-pendente-orange" alt="Revisão jurídica pendente">
 </p>
 
@@ -106,7 +106,7 @@ Fale normalmente. A skill é acionada sozinha quando o assunto é LGPD.
 
 ## Veja funcionando
 
-Saídas reais da v0.1, sem edição, em cenários fictícios dos evals:
+Saídas reais da v0.1.1, sem edição, em cenários fictícios dos evals:
 
 - **[Revisão de um checkout de e-commerce](docs/exemplos/revisao-ecommerce.md)**:
   - CPF em log e em URL;
@@ -119,17 +119,16 @@ Saídas reais da v0.1, sem edição, em cenários fictícios dos evals:
 Trecho da revisão do checkout:
 
 ```markdown
-**1. Corpo inteiro do checkout gravado em log (risco médio)**
-- `src/routes/checkout.ts:13` faz `logger.info({ body: req.body }, ...)`. Isso grava nome, e-mail,
-  CPF completo, telefone, endereço e itens em texto puro.
-- O destino é `logs/app.log`. Segundo o comentário em `src/lib/logger.ts:3-4`, tem 90 dias de
-  retenção e acesso de toda a engenharia e do suporte N2.
-- `src/lib/audit-log.ts:3` mascara o CPF, mas a linha 13 do checkout anula essa proteção.
-- Infringe o art. 46 (segurança) e o art. 6º, III e VII.
-- Correção:
-  - Registrar só `pedidoId` e metadados.
-  - Colocar `redact` no pino para `req.body.*`.
-  - Escrever um teste que falhe se o log contiver o CPF enviado.
+| # | Achado | Risco | Onde |
+|---|---|---|---|
+| 1 | O corpo inteiro do checkout vai para o log | Médio | `checkout.ts:13`, `logger.ts:3-5` |
+| 2 | CPF completo na URL do rastreio e no log de acesso | Médio | `pedidos.ts:8-10`, `rastreio.ts:2`, `server.ts:12-13` |
+| 3 | Checkbox de marketing já vem marcado, sem registro do consentimento | Médio | `CheckoutForm.tsx:21`, `checkout.ts:22-27` |
+
+**1. O corpo do checkout vai inteiro para o log.**
+- `logger.info({ body: req.body }, ...)` grava nome, e-mail, CPF, telefone e endereço em `logs/app.log`.
+- Esses logs ficam 90 dias e são lidos por toda a engenharia e pelo suporte N2.
+- Isso fere a necessidade e a segurança (LGPD, art. 6º, III e VII, e art. 46).
 ```
 
 ## O que ela cobre
@@ -189,12 +188,13 @@ A pasta [`evals/`](evals/) tem 15 casos públicos: 3 auditorias de código, 2 en
 regressões normativas. Eles incluem armadilhas para medir falso positivo, um script de execução e
 outro de pontuação.
 
-| Sonnet, 24/10/2026 (n=1) | Casos | Critérios | Falsos positivos | Skill acionada |
+| Sonnet, 24/10/2026 (n=1) | Casos | Critérios | Armadilhas violadas | Skill acionada |
 |---|---|---|---|---|
 | Sem skill | 12/15 | 77/80 | 0 | — |
-| **lgpd-dpo 0.1.0** | **14/15** | **79/80** | **0** | 14/15 |
+| **lgpd-dpo 0.1.1** | **15/15** | **80/80** | **0** | 14/15 |
 
-Leia as [ressalvas](evals/RESULTADOS.md#ressalvas) antes de citar: uma execução por caso, um modelo
+As respostas brutas estão em [`evals/resultados/`](evals/resultados/). Leia as
+[ressalvas](evals/RESULTADOS.md#ressalvas) antes de citar: uma execução por caso, um modelo
 e um gabarito ainda sem revisão jurídica. A próxima rodada compara também com outras skills de LGPD
 e usa casos reservados, escritos por terceiros.
 
@@ -243,14 +243,17 @@ são bem-vindos.
 
 ## Roadmap
 
-- **v0.2**: validador de cobertura, calculadora de prazos com feriados, registro de normas com
-  verificação automática.
+- **v0.2**:
+  - evals com juiz cego, 3 execuções por caso e respostas publicadas;
+  - teste de ponta a ponta da auditoria completa;
+  - validador de cobertura e calculadora de prazos;
+  - pacote para o Claude.ai.
 - **v0.3**: domínios de RH e colaboradores, crianças e ECA Digital, biometria.
 - **v0.4**: setores financeiro, varejo, educação e setor público, cada um com eval.
 - **v0.5**: modelos de documentos, modo de DPO sem código, relatório gerado por script.
 - **v1.0**: benchmark contra outras skills, revisão jurídica identificada, testes em 5 agentes.
 
-Detalhes em [docs/plano-de-melhorias.md](docs/plano-de-melhorias.md).
+Detalhes em [docs/roadmap.md](docs/roadmap.md).
 
 ## Contribuindo
 

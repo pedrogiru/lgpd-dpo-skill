@@ -149,7 +149,7 @@
     "expected_behavior": [
       "Informa o prazo de 3 dias úteis contados do conhecimento de que o incidente afetou dados pessoais, para a ANPD e para os titulares (Res. CD/ANPD nº 15/2024, art. 6º, caput e §1º, e art. 9º).",
       "Considera 20/11/2026 (sexta-feira) feriado nacional (Dia Nacional de Zumbi e da Consciência Negra, Lei 14.759/2023) e conclui que o prazo vence em 25/11/2026 (quarta-feira), excluído o dia do conhecimento; ressalva feriados locais.",
-      "Para agente de pequeno porte, prazo em dobro (art. 6º, §8º, e art. 9º, §6º): 6 dias úteis, até 30/11/2026; ressalva que o benefício não se aplica a quem faz tratamento de alto risco (Res. 2/2022, art. 3º) ou quando houver potencial comprometimento à integridade física ou moral (Res. 2/2022, art. 14, II), o que é plausível com dados de saúde.",
+      "Para agente de pequeno porte, prazo em dobro (art. 6º, §8º, e art. 9º, §6º): 6 dias úteis, até 30/11/2026; ressalva que o benefício não se aplica a quem faz tratamento de alto risco ou ultrapassa os limites de receita (Res. 2/2022, art. 3º), o que é plausível com dados de saúde. Não afirma a antiga exceção de \"integridade física ou moral\" do art. 14, II, revogada pela Res. 15/2024, art. 2º.",
       "Menciona a complementação em até 20 dias úteis contados da comunicação (art. 6º, §3º) e o registro do incidente por no mínimo 5 anos (art. 10).",
       "Lista o conteúdo mínimo da comunicação à ANPD (art. 6º, §2º, 12 incisos), incluindo número de titulares com crianças, adolescentes e idosos, medidas antes e depois, motivos da demora, data da ocorrência e do conhecimento, identificação do operador, causa principal e total de titulares das atividades afetadas.",
       "Para os titulares: linguagem simples e comunicação direta e individualizada quando possível (art. 9º, §1º).",
@@ -162,7 +162,7 @@
       "feriado|consciencia\\s+negra|zumbi",
       "\\bdobro\\b|\\b(?:6|seis)\\s*(?:\\(seis\\)\\s*)?dias?\\s+uteis",
       "\\b30\\s*[\\/.-]\\s*11\\b|\\b30\\s+de\\s+novembro",
-      "alto\\s+risco|integridade\\s+(?:fisica|moral)",
+      "alto\\s+risco",
       "\\b(?:20|vinte)\\s*(?:\\(vinte\\)\\s*)?dias?\\s+uteis",
       "\\b(?:5|cinco)\\s*(?:\\(cinco\\)\\s*)?anos",
       "idosos",
@@ -179,6 +179,8 @@
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:prazo|em\\s+ate|dentro\\s+de|no\\s+maximo)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,25}\\b72\\s*(?:h\\b|horas)",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:prazo|em\\s+ate|dentro\\s+de)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,25}\\b(?:2|dois)\\s+dias\\s+uteis",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:vence|vencimento|prazo\\s+(?:final|limite|termina)|termina|ultimo\\s+dia)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,50}(?:\\b(?:22|24)\\s*[\\/.-]\\s*11\\b|\\b(?:22|24)\\s+de\\s+novembro)",
+      "(?:^|\\n)(?![^\\n]*revog)[^\\n]*integridade\\s+fisica\\s+ou\\s+moral",
+      "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:aguard|esper)\\w*(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,40}(?:o\\s+)?(?:fim|termino|conclus\\w+|encerramento|resultado)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,20}(?:da\\s+|das\\s+)?(?:investiga|apura|pericia|analise)",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})\\b(?:esta|estao|estara|estarao|estaria|estariam|fica|ficam|ficara|ficarao|ficaria|ficariam|encontra-se|encontram-se|e\\s+considerad[ao]s?|pode\\s+ser\\s+considerad[ao]s?)\\s+(?:\\w+\\s+){0,2}(?:em\\s+(?:plena\\s+|total\\s+|integral\\s+)?conformidade|totalmente\\s+adequad[ao]s?|plenamente\\s+adequad[ao]s?|adequad[ao]s?|conformes?)\\s+(?:com\\s+)?(?:a\\s+)?lgpd",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})\\b(?:cumpre|cumprem|atende|atendem)\\s+(?:integralmente|totalmente|plenamente|100%)\\s+(?:a\\s+)?lgpd",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})\\b100\\s*%\\s+(?:em\\s+conformidade|conformes?|adequad[ao]s?|compliance)",
@@ -194,7 +196,7 @@
     ],
     "fontes": [
       "Res. CD/ANPD nº 15/2024, art. 5º (critérios), art. 6º caput, §§1º, 2º (incisos I a XII), 3º e 8º; art. 9º caput, §1º e §6º; art. 10",
-      "Res. CD/ANPD nº 2/2022, art. 3º, I, art. 4º e art. 14, II",
+      "Res. CD/ANPD nº 2/2022, art. 3º, art. 4º e art. 14, II (redação dada pela Res. CD/ANPD nº 15/2024, art. 2º)",
       "Lei 14.759/2023 (20 de novembro, feriado nacional)",
       "LGPD art. 48",
       "Lei 9.784/1999, art. 66 (exclusão do dia do começo), por analogia — interpretação, confirmar"
@@ -253,7 +255,7 @@
     "deve_conter": [
       "\\bart(?:igo)?\\.?\\s*11o?\\s*,?\\s*(?:§|par(?:agrafo)?\\.?)\\s*4o?\\b|§\\s*4o?\\s*(?:,\\s*)?do\\s+art(?:igo)?\\.?\\s*11\\b",
       "veda",
-      "mesmo\\s+(?:com|que\\s+haja|havendo|diante\\s+d[oe]|que\\s+(?:o\\s+)?(?:titular|paciente)\\s+consinta)\\s+(?:o\\s+|um\\s+)?consentimento|mesmo\\s+que\\s+(?:o\\s+)?(?:titular|paciente)\\s+consinta|consentimento(?:[^;.\\n]|\\.(?=\\S)){0,80}\\bnao\\b(?:[^;.\\n]|\\.(?=\\S)){0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona|elimina|cura|valida|suficiente|e\\s+(?:uma\\s+)?exce|esta\\s+entre|figura|consta)|\\bnao\\b(?:[^;.\\n]|\\.(?=\\S)){0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona)(?:[^;.\\n]|\\.(?=\\S)){0,60}consentimento|consentimento(?:[^;.\\n]|\\.(?=\\S)){0,30}(?:insuficiente|irrelevante)"
+      "mesmo\\s+(?:com|que\\s+haja|havendo|diante\\s+d[oe]|que\\s+(?:o\\s+)?(?:titular|paciente)\\s+consinta)\\s+(?:o\\s+|um\\s+)?consentimento|mesmo\\s+que\\s+(?:o\\s+)?(?:titular|paciente)\\s+consinta|consentimento(?:[^;.\\n]|\\.(?=\\S)){0,80}\\bnao\\b(?:[^;.\\n]|\\.(?=\\S)){0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona|elimina|cura|valida|suficiente|e\\s+(?:uma\\s+)?exce|esta\\s+entre|figura|consta)|\\bnao\\b(?:[^;.\\n]|\\.(?=\\S)){0,40}(?:afasta|supre|legitima|resolve|basta|autoriza|libera|excepciona)(?:[^;.\\n]|\\.(?=\\S)){0,60}consentimento|consentimento(?:[^;.\\n]|\\.(?=\\S)){0,30}(?:insuficiente|irrelevante)|(?:checkbox|caixa\\s+de\\s+selecao|aceite|opt-?in)(?:[^;.\\n]|\\.(?=\\S)){0,80}\\bnao\\s+(?:libera|legitima|autoriza|afasta|resolve|basta)|\\bnao\\s+afasta\\s+(?:uma\\s+|a\\s+)?vedacao"
     ],
     "nao_deve_conter": [
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})com\\s+(?:o\\s+|esse\\s+|um\\s+)?(?:checkbox\\s+de\\s+)?consentimento(?:\\s+\\w+){0,4}\\s*,?\\s+(?:fica|e|torna-se|se\\s+torna|passa\\s+a\\s+ser|seria|estaria|ficaria)\\s+(?:liberad|legal|permitid|possivel|licit|valid|autorizad|regular)",
@@ -543,6 +545,7 @@
     "nao_deve_conter": [
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:\\blgpd\\b|\\blei\\b)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,40}(?:proibe|veda|impede)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,40}condicionar",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:e|seria)\\s+(?:sempre\\s+)?(?:proibido|vedado|ilegal|ilicito)\\s+condicionar",
+      "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})(?:art(?:igo)?\\.?\\s*9|§\\s*3)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,60}(?:admite|permite|autoriza)(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,30}condicionar(?:(?!\\b(?:nao|nunca|nem|jamais)\\b)(?:[^;.\\n]|\\.(?=\\S))){0,50}ao\\s+consentimento",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})\\b(?:esta|estao|estara|estarao|estaria|estariam|fica|ficam|ficara|ficarao|ficaria|ficariam|encontra-se|encontram-se|e\\s+considerad[ao]s?|pode\\s+ser\\s+considerad[ao]s?)\\s+(?:\\w+\\s+){0,2}(?:em\\s+(?:plena\\s+|total\\s+|integral\\s+)?conformidade|totalmente\\s+adequad[ao]s?|plenamente\\s+adequad[ao]s?|adequad[ao]s?|conformes?)\\s+(?:com\\s+)?(?:a\\s+)?lgpd",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})\\b(?:cumpre|cumprem|atende|atendem)\\s+(?:integralmente|totalmente|plenamente|100%)\\s+(?:a\\s+)?lgpd",
       "(?<!\\b(?:nao|nunca|nem|jamais)\\b(?:[^;.\\n]|\\.(?=\\S)){0,60})\\b100\\s*%\\s+(?:em\\s+conformidade|conformes?|adequad[ao]s?|compliance)",

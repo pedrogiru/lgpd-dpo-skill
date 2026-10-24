@@ -98,8 +98,9 @@ Confira cada uma antes de responder; a situação e a data de verificação est�
   cláusulas-padrão da Res. 19/2024.
 - **Art. 20**: o titular pode pedir revisão de decisão unicamente automatizada, mas a lei não exige
   que a revisão seja feita por pessoa natural (trecho vetado na Lei 13.853/2019).
-- **RIPD**: não é obrigação geral. A ANPD pode exigi-lo (arts. 10, §3, e 38). Alto risco segue o
-  critério cumulativo da Res. CD/ANPD nº 2/2022, art. 4: um critério geral (larga escala ou afetar
+- **RIPD**: não é obrigação geral. A ANPD pode exigi-lo (arts. 10, §3, e 38). Para avaliar alto
+  risco, a referência normativa disponível é o critério cumulativo da Res. CD/ANPD nº 2/2022, art. 4,
+  definido para fins daquele regulamento: um critério geral (larga escala ou afetar
   significativamente direitos) **e** um específico (tecnologia emergente, vigilância de área
   pública, decisão unicamente automatizada, dado sensível ou de criança, adolescente ou idoso).
 - **Crianças e adolescentes**: o consentimento parental do art. 14, §1 é para **criança** (até 12
@@ -108,12 +109,16 @@ Confira cada uma antes de responder; a situação e a data de verificação est�
 - **Dado sensível**: o art. 11 não admite legítimo interesse, proteção do crédito nem "execução de
   contrato" (o art. 11, II, "d" é exercício regular de direitos, inclusive em contrato, que é outra
   coisa).
-- **Consentimento como condição**: o art. 9, §3 admite condicionar produto ou serviço ao
-  consentimento, com destaque ao titular.
+- **Tratamento como condição do serviço**: o art. 9, §3 admite que o **tratamento** seja condição
+  para fornecer produto ou serviço, desde que o titular seja informado com destaque e sobre como
+  exercer seus direitos. O dispositivo não fala em consentimento: se a base for consentimento,
+  condicioná-lo põe em dúvida que ele seja livre (art. 5, XII), e a base costuma ser outra (ex.:
+  execução de contrato, art. 7, V). Leve ao jurídico.
 - **Encarregado**: o agente de pequeno porte pode ser dispensado de indicar encarregado, mas deve
   manter canal de comunicação com o titular (Res. CD/ANPD nº 2/2022, art. 11).
 - **Art. 19**: os 15 dias são para a declaração completa de confirmação e acesso, não para
-  eliminação ou outros direitos.
+  eliminação ou outros direitos. Para pequeno porte (Res. 2/2022, arts. 14 e 15): 30 dias para a
+  declaração completa, até 15 dias para a simplificada e prazo em dobro nos pedidos do art. 18.
 - **Incidente** (Res. CD/ANPD nº 15/2024): 3 dias úteis do conhecimento de que o incidente afetou
   dados pessoais, para a ANPD e para os titulares; complementação em 20 dias úteis; em dobro para
   pequeno porte que possa usar o regime diferenciado. Mostre a data final, pulando fins de semana e

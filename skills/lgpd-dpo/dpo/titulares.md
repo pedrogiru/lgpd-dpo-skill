@@ -45,7 +45,7 @@ Nunca envie dados para e-mail ou telefone diferente do cadastrado sem verificaç
 | Informação sobre compartilhamento (art. 18, VII) | Listar as entidades públicas e privadas | Use a lista de terceiros do inventário |
 | Informação sobre não consentir (art. 18, VIII) | Explicar as consequências | |
 | Revogação do consentimento (art. 18, IX; art. 8, §5) | Parar o tratamento baseado nele | Não retroage; verifique se o sistema respeita a revogação |
-| Oposição (art. 18, §2) | Avaliar | Cabe contra tratamento sem consentimento feito em desconformidade com a lei; típico em marketing por legítimo interesse |
+| Oposição (art. 18, §2) | Avaliar se há descumprimento da lei | Cabe contra tratamento baseado em hipótese que dispensa consentimento, **em caso de descumprimento da LGPD**; não é direito absoluto. Em marketing por legítimo interesse, oferecer saída fácil é salvaguarda recomendada do teste de balanceamento |
 | Revisão de decisão automatizada (art. 20) | Informar critérios e procedimentos; revisar | Segredo comercial pode limitar detalhes, não o direito; a revisão não precisa ser feita por pessoa natural |
 
 ## 4. Prazos
@@ -57,6 +57,12 @@ Nunca envie dados para e-mail ou telefone diferente do cadastrado sem verificaç
   regulamento. Se não for possível atender imediatamente, responda ao titular comunicando que não é
   agente de tratamento (e indicando quem é, se possível) ou as razões de fato ou de direito que
   impedem a providência imediata (art. 18, §4).
+- **Agente de pequeno porte** que possa usar o regime diferenciado (Res. CD/ANPD nº 2/2022, art. 3):
+  - prazo em dobro no atendimento dos pedidos do art. 18 (art. 14, I);
+  - prazo em dobro para a declaração clara e completa do art. 19, II, ou seja, até 30 dias
+    (art. 14, III);
+  - a declaração simplificada do art. 19, I pode ser fornecida em até 15 dias do requerimento
+    (art. 15).
 
 ## 5. Localizar os dados
 
