@@ -1,0 +1,20 @@
+{
+  "name": "portal-rh",
+  "version": "2.3.0",
+  "private": true,
+  "description": "API do portal de RH (colaboradores, gestores, medicina do trabalho e recrutamento)",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "jobs": "tsx src/jobs/agendador.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "lgpd-dpo",
+  "description": "Skill de LGPD para agentes de código: auditoria de conformidade com evidência em arquivo:linha e playbooks do encarregado (DPO), para qualquer setor no Brasil.",
+  "owner": {
+    "name": "Pedro Giru",
+    "url": "https://github.com/pedrogiru"
+  },
+  "plugins": [
+    {
+      "name": "lgpd-dpo",
+      "source": "./",
+      "description": "Auditoria de conformidade com a LGPD em código e sistemas, e apoio ao encarregado (DPO), para qualquer setor no Brasil.",
+      "version": "0.1.0",
+      "license": "MIT"
+    }
+  ]
+}

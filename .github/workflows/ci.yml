@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Mensal: lembra de reconferir normas e pega regressões dos validadores.
+    - cron: "0 12 1 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Testes dos scripts
+        run: node --test tests/*.test.cjs
+      - name: Consistência dos evals
+        run: node evals/score.cjs --check
+      - name: Description do SKILL.md dentro do limite
+        run: |
+          len=$(awk '/^description:/{sub(/^description: /,""); print length($0)}' skills/lgpd-dpo/SKILL.md)
+          echo "description: $len caracteres"
+          test "$len" -le 1024
+      - name: SKILL.md abaixo de 500 linhas
+        run: test "$(wc -l < skills/lgpd-dpo/SKILL.md)" -lt 500
+      - name: Links internos dos arquivos da skill
+        run: |
+          status=0
+          for f in $(find skills -name '*.md'); do
+            d=$(dirname "$f")
+            for l in $(grep -oE '\]\([^)#:]+\.md' "$f" | sed -E 's/^\]\(//'); do
+              [ -f "$d/$l" ] || { echo "link quebrado: $f -> $l"; status=1; }
+            done
+          done
+          exit $status

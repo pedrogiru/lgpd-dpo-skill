@@ -1,0 +1,25 @@
+{
+  "name": "lgpd-dpo",
+  "description": "Auditoria de conformidade com a LGPD em código e sistemas, e apoio ao encarregado (DPO), para qualquer setor no Brasil. Evidência em arquivo:linha, verificação independente de achados, playbooks de incidente (Res. CD/ANPD nº 15/2024), titulares, RoPA, RIPD e fornecedores.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Pedro Giru",
+    "url": "https://github.com/pedrogiru"
+  },
+  "homepage": "https://github.com/pedrogiru/lgpd-dpo-skill",
+  "repository": "https://github.com/pedrogiru/lgpd-dpo-skill",
+  "license": "MIT",
+  "keywords": [
+    "lgpd",
+    "anpd",
+    "dpo",
+    "encarregado",
+    "privacidade",
+    "protecao-de-dados",
+    "ripd",
+    "ropa",
+    "brasil",
+    "privacy"
+  ],
+  "icon": ".claude-plugin/icon.png"
+}

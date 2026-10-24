@@ -1,0 +1,151 @@
+{
+  "$comment": "Contrato de achados.json. scripts/validate-findings.cjs interpreta este schema e faz as checagens semânticas que ficam mais claras em código.",
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "description": "Achado com fluxo provado no código e obrigação aplicável sem depender de fato externo.",
+        "properties": {
+          "veredito": { "type": "string", "const": "confirmado" },
+          "fingerprint": { "$ref": "#/definitions/fingerprint" },
+          "unidade": { "$ref": "#/definitions/unidade" },
+          "titulo": { "type": "string", "minLength": 1 },
+          "descricao": { "type": "string", "minLength": 1 },
+          "artigos": { "$ref": "#/definitions/artigos" },
+          "principios": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": ["finalidade", "adequacao", "necessidade", "livre_acesso", "qualidade", "transparencia", "seguranca", "prevencao", "nao_discriminacao", "responsabilizacao"]
+            }
+          },
+          "categorias_dados": { "$ref": "#/definitions/categorias_dados" },
+          "titulares_afetados": { "type": "string", "minLength": 1 },
+          "fluxo": { "$ref": "#/definitions/fluxo" },
+          "dano_possivel": { "type": "string", "minLength": 1 },
+          "risco": {
+            "type": "object",
+            "properties": {
+              "probabilidade": { "type": "string", "enum": ["baixa", "media", "alta"] },
+              "impacto": { "type": "string", "enum": ["baixo", "medio", "alto", "critico"] },
+              "nivel": { "type": "string", "enum": ["baixo", "medio", "alto", "critico"] },
+              "justificativa": { "type": "string", "minLength": 1 }
+            },
+            "required": ["probabilidade", "impacto", "nivel", "justificativa"],
+            "additionalProperties": false
+          },
+          "correcao": {
+            "type": "object",
+            "properties": {
+              "invariante": { "type": "string", "minLength": 1 },
+              "mudanca": { "type": "string", "minLength": 1 },
+              "teste": { "type": "string", "minLength": 1 }
+            },
+            "required": ["invariante", "mudanca"],
+            "additionalProperties": false
+          },
+          "acao_dpo": { "type": "string", "minLength": 1 }
+        },
+        "required": ["veredito", "fingerprint", "titulo", "descricao", "artigos", "categorias_dados", "titulares_afetados", "fluxo", "dano_possivel", "risco", "correcao"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "description": "Hipótese sustentada pelo código, bloqueada por um fato fora do repositório. Sem nível de risco.",
+        "properties": {
+          "veredito": { "type": "string", "const": "precisa_validacao" },
+          "fingerprint": { "$ref": "#/definitions/fingerprint" },
+          "unidade": { "$ref": "#/definitions/unidade" },
+          "titulo": { "type": "string", "minLength": 1 },
+          "descricao": { "type": "string", "minLength": 1 },
+          "artigos": { "$ref": "#/definitions/artigos" },
+          "categorias_dados": { "$ref": "#/definitions/categorias_dados" },
+          "titulares_afetados": { "type": "string", "minLength": 1 },
+          "fluxo": { "$ref": "#/definitions/fluxo" },
+          "fato_faltante": { "type": "string", "minLength": 1 },
+          "responsavel": { "type": "string", "enum": ["dpo", "juridico", "infra", "seguranca", "produto", "negocio", "fornecedor"] },
+          "plano_validacao": { "type": "string", "minLength": 1 }
+        },
+        "required": ["veredito", "fingerprint", "titulo", "descricao", "artigos", "categorias_dados", "fluxo", "fato_faltante", "responsavel", "plano_validacao"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "description": "Fato confirmado que não viola obrigação, útil para o RoPA ou como contexto de outro achado. Sem nível de risco.",
+        "properties": {
+          "veredito": { "type": "string", "const": "observacao" },
+          "fingerprint": { "$ref": "#/definitions/fingerprint" },
+          "unidade": { "$ref": "#/definitions/unidade" },
+          "titulo": { "type": "string", "minLength": 1 },
+          "descricao": { "type": "string", "minLength": 1 },
+          "fluxo": { "$ref": "#/definitions/fluxo" },
+          "acao_dpo": { "type": "string", "minLength": 1 }
+        },
+        "required": ["veredito", "fingerprint", "titulo", "descricao"],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "description": "Candidato refutado ou fora do escopo. Mantido para não ser caçado de novo.",
+        "properties": {
+          "veredito": { "type": "string", "const": "rejeitado" },
+          "fingerprint": { "$ref": "#/definitions/fingerprint" },
+          "unidade": { "$ref": "#/definitions/unidade" },
+          "titulo": { "type": "string", "minLength": 1 },
+          "tipo_rejeicao": { "type": "string", "enum": ["refutado", "fora_do_escopo"] },
+          "motivo": { "type": "string", "minLength": 1 }
+        },
+        "required": ["veredito", "fingerprint", "titulo", "motivo"],
+        "additionalProperties": false
+      }
+    ]
+  },
+  "definitions": {
+    "fingerprint": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9][a-z0-9._:/@+-]*$",
+      "description": "Identificador estável derivado do código (ex.: pixel-meta/checkout/conteudo-carrinho). Não muda entre vereditos."
+    },
+    "unidade": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "description": "Id da unidade de cobertura do inventário (ex.: checkout/compartilhamento/terceiros)."
+    },
+    "artigos": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Ex.: \"LGPD art. 11, §4\", \"Res. CD/ANPD nº 15/2024, art. 6\"."
+    },
+    "categorias_dados": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["comum", "identificador_governamental", "sensivel_saude", "sensivel_outros", "crianca_adolescente", "idoso", "financeiro", "autenticacao", "localizacao", "comportamental"]
+      }
+    },
+    "fluxo": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "etapa": { "type": "string", "enum": ["coleta", "armazenamento", "uso", "compartilhamento", "exposicao", "retencao", "eliminacao", "controle"] },
+          "origem": { "type": "string", "enum": ["repositorio", "fora_do_repositorio"], "description": "Padrão: repositorio. fora_do_repositorio (painel de tags, contrato, conta do provedor) dispensa arquivo e linha e só é aceito fora de achados confirmados." },
+          "arquivo": { "type": "string", "minLength": 1 },
+          "linha": { "type": "integer", "minimum": 1 },
+          "descricao": { "type": "string", "minLength": 1 }
+        },
+        "required": ["etapa", "descricao"],
+        "additionalProperties": false
+      }
+    }
+  }
+}

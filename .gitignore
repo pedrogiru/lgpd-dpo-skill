@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+evals/respostas/
+respostas/
+evals/runs/
