@@ -3,7 +3,7 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versões seguem
 [SemVer](https://semver.org/lang/pt-BR/). Mudanças normativas são listadas à parte em cada versão.
 
-## [Não lançado] — 0.1.0
+## [0.1.0] — 2026-10-24
 
 ### Adicionado
 - Estrutura pública: `skills/lgpd-dpo/` com núcleo, domínios, setores, playbooks de DPO, normas,

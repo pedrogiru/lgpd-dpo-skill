@@ -7,15 +7,12 @@ existem e de pesquisa na web. Este arquivo é a síntese.
 **A skill será pública.** O objetivo é ser a melhor skill de LGPD que existe, e isso precisa ser
 demonstrável, não autodeclarado. A seção "Skill pública" abaixo diz o que isso muda.
 
-> **Situação (24/10/2026):** v0.1 em preparação.
+> **Situação (24/10/2026):** v0.1.0 publicada em https://github.com/pedrogiru/lgpd-dpo-skill.
 > - A Fase 0 foi aplicada, com estas exceções: Lei 14.289/2022 em saúde e tabela de retenção completa
 >   ficam para a v0.4.
 > - Núcleo neutro e reorganização concluídos.
 > - 15 evals e uma primeira rodada no Sonnet: 14/15 com a skill, 12/15 sem; ver
 >   `evals/RESULTADOS.md`.
-> - Falta para publicar a v0.1:
->   - criar o repositório no GitHub e fazer o primeiro commit;
->   - CI verde lá.
 > - As referências `arquivo:linha` neste plano apontam para a estrutura antiga, anterior a
 >   `skills/lgpd-dpo/`.
 
